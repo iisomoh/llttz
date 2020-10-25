@@ -16,12 +16,20 @@ public class TimeZoneListStore extends TimeZoneStore {
         timeZones.add(loc);
     }
 
+    public List getList() {
+        return timeZones;
+    }
+
+    public int getListSize() {
+        return timeZones.size();
+    }
+
     @Override
     public TimeZone nearestTimeZone(Location node) {
         double bestDistance = Double.MAX_VALUE;
         Location bestGuess = timeZones.get(0);
 
-        for (Location current : timeZones.subList(1, timeZones.size())) {
+        for (Location current : timeZones.subList(0, timeZones.size())) {
             double newDistance = distanceInKilometers(node, current);
 
             if (newDistance < bestDistance) {

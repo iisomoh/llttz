@@ -48,4 +48,30 @@ public abstract class TimeZoneStore {
     protected double distanceInKilometers(final Location from, final Location to) {
         return distanceInKilometers(from.getLatitude(), from.getLongitude(), to.getLatitude(), to.getLongitude());
     }
+
+    // Just for test purpose
+    public static double centralAngle2(final double latFrom, final double lonFrom, final double latTo, final double lonTo) {
+        final double latFromRad = toRadians(latFrom),
+                lonFromRad = toRadians(lonFrom),
+                latToRad   = toRadians(latTo),
+                lonToRad   = toRadians(lonTo);
+
+        final double centralAngle = toDegrees(acos(sin(latFromRad) * sin(latToRad) + cos(latFromRad) * cos(latToRad) * cos(lonToRad - lonFromRad)));
+
+        return centralAngle <= 180.0 ? centralAngle : (360.0 - centralAngle);
+    }
+
+    public static double distanceInKilometers2(final Location from, final Location to) {
+        final double meridianLength = 111.1;
+        double latFrom = from.getLatitude();
+        double lonFrom = from.getLongitude();
+        double latTo = to.getLatitude();
+        double lonTo = to.getLongitude();
+        return meridianLength * centralAngle2(latFrom, lonFrom, latTo, lonTo);
+    }
+
+    public static boolean hypersphereAndHyperplaneIntersection2(final double coord1, final double coord2, final double bestDistance) {
+        final double diff = Math.abs(coord1 - coord2);
+        return (diff < 180.0) ? (diff < bestDistance) : ((360.0 - diff) < bestDistance);
+    }
 }

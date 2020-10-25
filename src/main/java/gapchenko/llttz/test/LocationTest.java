@@ -32,8 +32,8 @@ public class LocationTest {
         double[] coordinates = {13.75, 100.51666};
         Location test = new Location(13.75, 100.51666, "Asia/Bangkok");
         assertNotNull(test);
-        assertEquals(test.getCoordinates()[0], coordinates[0], 0.0001);
-        assertEquals(test.getCoordinates()[1], coordinates[1], 0.0001);
-        assertEquals(test.getZone(), "Asia/Bangkok");
+        assertEquals(coordinates[0], test.getCoordinates()[0], 0.0001);
+        assertEquals(coordinates[1], test.getCoordinates()[1], 0.0001);
+        assertEquals("Asia/Bangkok", test.getZone());
     }
 }

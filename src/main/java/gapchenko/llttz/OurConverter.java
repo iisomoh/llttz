@@ -1,6 +1,7 @@
 package gapchenko.llttz;
 
-import gapchenko.llttz.stores.*;
+import gapchenko.llttz.stores.Location;
+import gapchenko.llttz.stores.TimeZoneStore;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,11 +12,11 @@ import java.util.TimeZone;
  * @author artemgapchenko
  * Created on 18.04.14.
  */
-public class Converter implements IConverter {
+public class OurConverter implements gapchenko.llttz.IConverter {
     private TimeZoneStore tzStore;
-    private static Converter instance = null;
+    private static OurConverter instance = null;
 
-    private Converter(Class clazz) {
+    public OurConverter(Class clazz) {
         if (!TimeZoneStore.class.isAssignableFrom(clazz)) {
             throw new IllegalArgumentException("Illegal store provided: " + clazz.getName());
         }
@@ -27,17 +28,17 @@ public class Converter implements IConverter {
         }
     }
 
-    public TimeZoneStore getTzStore() {
-        return this.tzStore;
-    }
-
-    public static Converter getInstance(final Class clazz) {
-        if (instance == null || !instance.getStoreClass().equals(clazz)) instance = new Converter(clazz);
+    public static OurConverter getInstance(final Class clazz) {
+        if (instance == null || !instance.getStoreClass().equals(clazz)) instance = new OurConverter(clazz);
         return instance;
     }
 
     public Class getStoreClass() {
         return tzStore.getClass();
+    }
+
+    public TimeZoneStore getTzStore() {
+        return this.tzStore;
     }
 
     @Override
@@ -46,8 +47,9 @@ public class Converter implements IConverter {
     }
 
     private void loadData() {
+        // FAULT HERE
         BufferedReader br = new BufferedReader(
-                new InputStreamReader(Converter.class.getResourceAsStream("/timezones.csv"))
+                new InputStreamReader(Converter.class.getResourceAsStream("/missing_timezones.csv"))
         );
 
         try {
