@@ -491,7 +491,7 @@ ECC = max{C1,C2} = max{2,2} = 2 Test cases
 | Test Cases                    | Expected result  	                |
 | :-------------------------:	| :----------------------------:	|
 | T1 (True, True)               | tzStore is not null 	            |
-| T2 (True, False) 	            | tzStore is null	                |
+| T2 (True, False) 	            | tzStore is nulll	                |
 | T3 (False, True)              | Infeasible test 	                |
 | T4 (False, False) 	        | throw IllegalArgumentException	|
 
